@@ -8,25 +8,25 @@ template<typename ValueType>
 class ForwardLinkedList;
 
 
-template<ValueType>
-class Node<ForwardLinkedList<ValueType>> {
+template<typename ValueType>
+class Node<ForwardLinkedList<ValueType>, ValueType> {
 
 public:
 using value_type = ValueType;
 using list_type = ForwardLinkedList<ValueType>;
-using node_t = Node<ForwardLinkedList<ValueType>>;
+using node_t = Node<ForwardLinkedList<ValueType>, ValueType>;
 
 node_t * next;
 value_type value;
-node_t(): next{nullptr} 
+Node(): next{nullptr} 
 /* default inititalizable value_t? */
 {}
-node_t(const node_t&) = delete;
-node_t(node_t && rv) = delete;
-node_t& operator=(const node_t&) = delete;
-node_t& operator=(node_t &&) = delete;
+Node(const Node<list_type,ValueType>&) = delete;
+Node(Node<list_type,ValueType> && rv) = delete;
+Node& operator=(const Node<list_type,ValueType>&) = delete;
+Node& operator=(Node<list_type,ValueType> &&) = delete;
 
-~node_t() = default;
+~Node() = default;
 };
 
 
@@ -34,7 +34,7 @@ template<typename ValueType>
 class ForwardLinkedList {
 
 public:
-using node_t = Node<ForwardLinkedList<ValueType>>;
+using node_type = Node<ForwardLinkedList<ValueType>, ValueType>;
 
 ForwardLinkedList(){}
 

@@ -1,4 +1,5 @@
 #include <cinttypes>
+#include <cassert>
 
 template<typename ListType, typename ValueType>
 class Node {
@@ -32,12 +33,38 @@ Node& operator=(Node<list_type,ValueType> &&) = delete;
 
 template<typename ValueType>
 class ForwardLinkedList {
-
 public:
 using node_type = Node<ForwardLinkedList<ValueType>, ValueType>;
+using value_type = typename node_type::value_type;
 
-ForwardLinkedList(){}
+private:
+node_type * head_;
 
+public:
+ForwardLinkedList(): head_{nullptr} {}
+
+inline bool Empty() const noexcept {
+return head_ == nullptr;
+}
+
+inline const value_type& Front() const noexcept {
+assert(!Empty());
+return head_->value;
+}
+
+inline value_type& Front() {
+assert(!Empty());
+return head_->value;
+}
+
+// O(1) complexity
+inline void PushFront(const value_type & v) noexcept {
+node_type * curr = new node_type{};
+
+curr->value = v;
+curr->next = head_;
+head_ = curr;
+}
 
 };
 

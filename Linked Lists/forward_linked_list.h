@@ -42,6 +42,16 @@ node_type * head_;
 
 public:
 ForwardLinkedList(): head_{nullptr} {}
+~ForwardLinkedList() {
+node_type * curr = head_;
+node_type * next = nullptr;
+while(curr != nullptr) {
+next = curr->next;
+delete curr;
+curr = next;
+}
+
+}
 
 inline bool Empty() const noexcept {
 return head_ == nullptr;
@@ -64,6 +74,14 @@ node_type * curr = new node_type{};
 curr->value = v;
 curr->next = head_;
 head_ = curr;
+}
+
+inline void PopFront() noexcept {
+assert(!Empty());
+
+node_type * next = head_->next;
+delete head_;
+head_ = next;
 }
 
 };

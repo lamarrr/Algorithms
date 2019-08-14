@@ -1,9 +1,8 @@
 #include <cinttypes>
 #include <cassert>
 
-template<typename ListType, typename ValueType>
-class Node {
-};
+#include "node.h"
+
 
 template<typename ValueType>
 class ForwardLinkedList;

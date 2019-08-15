@@ -31,9 +31,29 @@ class CircularlyLinkedList {
  public:
   CircularlyLinkedList() : cursor_{nullptr}, front_{nullptr}, back_{nullptr} {}
   CircularlyLinkedList(const CircularlyLinkedList&) = delete;
-  CircularlyLinkedList(CircularlyLinkedList&&) = delete;
-  CircularlyLinkedList& operator=(const CircularlyLinkedList&&) = delete;
-  CircularlyLinkedList& operator=(CircularlyLinkedList&&) = delete;
+  CircularlyLinkedList(CircularlyLinkedList&& rv) {
+    this->back_ = rv.back_;
+    rv.back_ = nullptr;
+
+    this->front_ = rv.front_;
+    rv.front_ = nullptr;
+
+    this->cursor_ = rv.cursor_;
+    rv.cursor_ = nullptr;
+  };
+  CircularlyLinkedList& operator=(const CircularlyLinkedList&) = delete;
+  CircularlyLinkedList& operator=(CircularlyLinkedList&& rv) {
+    this->back_ = rv.back_;
+    rv.back_ = nullptr;
+
+    this->front_ = rv.front_;
+    rv.front_ = nullptr;
+
+    this->cursor_ = rv.cursor_;
+    rv.cursor_ = nullptr;
+
+    return *this;
+  };
   ~CircularlyLinkedList() {
     while (front_ != nullptr) {
       node_type* cur = front_;
@@ -74,5 +94,21 @@ class CircularlyLinkedList {
     front_->value = v;
 
     return;
+  }
+
+  typename node_type::list_type ReverseClone() const {
+    typename node_type::list_type clone{};
+
+    node_type* cursor = front_;
+
+    while (cursor != nullptr) {
+      clone.PushFront(cursor->value);
+      std::cout << "Push " << cursor->value << std::endl;
+
+      cursor = cursor->next;
+    }
+
+    // assuming copy elission does not occur
+    return std::move(clone);
   }
 };

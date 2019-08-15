@@ -1,5 +1,3 @@
-# Cracking-The-Coding-Interview
-Few Algorithms implemented in C++
+# Algorithms
 
-
-** WORK IN PROGRESS **
+Basic algorithms implemented in C++

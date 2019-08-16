@@ -2,6 +2,7 @@
 #include <cinttypes>
 
 // inplace
+// tail recursion
 // complexity: O(n/2) => O(n)
 // moving until partition point is reached?
 template <typename ContainerType,
